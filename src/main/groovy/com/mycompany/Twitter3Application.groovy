@@ -31,7 +31,7 @@ class Twitter3Application {
 	@Bean
 	CommandLineRunner runner() {
 		return  {
-			List<User> employees = userRepository.findAll();
+			/*List<User> employees = userRepository.findAll();
 			if (employees.size() < 10) {
 				LOGGER.info("******* Inserting User to DB *******");
 				//employeeRepository.saveAll(HelperUtil.employeeSupplier.get());
@@ -54,9 +54,7 @@ class Twitter3Application {
 			} else {
 				LOGGER.info("******* Users stored in DB Size :: {}", employees.size());
 				LOGGER.info("******* Users stored in DB :: {}", employees);
-			}
+			}*/
 		};
 	}
-
-
 }

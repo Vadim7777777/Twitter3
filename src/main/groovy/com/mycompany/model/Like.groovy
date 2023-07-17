@@ -11,6 +11,15 @@ class Like {
     @Id
     private LikeKey id;
 
+    private LikeKind kind;
+
+    static enum LikeKind {
+        LIKE,
+        DISLIKE,
+        HAPPY,
+        SAD
+    }
+
     static class LikeKey {
 
         @DocumentReference
@@ -18,6 +27,13 @@ class Like {
 
         @DocumentReference
         private User likedBy;
+
+        LikeKey() {}
+
+        LikeKey(Post post, User likedBy) {
+            this.post = post;
+            this.likedBy = likedBy;
+        }
 
         def setLikedBy(User user) {
             likedBy = user;
@@ -37,5 +53,7 @@ class Like {
 
         id.setLikedBy(user);
         id.setPost(post);
+
+        this.kind = LikeKind.LIKE;
     }
 }

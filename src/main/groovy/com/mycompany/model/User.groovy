@@ -1,10 +1,14 @@
-package com.mycompany.model;
+package com.mycompany.model
 
+import lombok.Getter
+import lombok.Setter;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.DocumentReference;
 
 @Document
+@Getter
+@Setter
 class User {
     @Id
     private String id;
@@ -13,20 +17,24 @@ class User {
     private String email;
 
     @DocumentReference(lazy = true)
-    private List<Post> posts;
+    private List<Post> posts = new ArrayList<Post>();
 
     @DocumentReference(lazy = true)
-    private List<Like> likes;
+    private List<Like> likes = new ArrayList<Like>();
 
     @DocumentReference(lazy = true)
-    private List<Subscription> subscriptions;
+    private List<User> subscriptions = new ArrayList<Subscription>();
 
     def subscribeTo(User user) {
-        subscriptions.add(new Subscription(this, user));
+        subscriptions.add(user);
     }
 
     def unsubscribe(User user) {
-        subscriptions.remove(new Subscription(this, user));
+        subscriptions.remove(user);
+    }
+
+    def isSubscribedTo(User target) {
+        return subscriptions.contains(target);
     }
 
     def likePost(Post post) {
@@ -50,6 +58,18 @@ class User {
         Comment comment = new Comment();
 
         post.getComments().add(comment);
+    }
+
+    def addPost(Post post) {
+        this.posts.add(post);
+    }
+
+    def getPosts() {
+        return this.posts;
+    }
+
+    def getSubscriptions() {
+        return this.subscriptions;
     }
 
 }

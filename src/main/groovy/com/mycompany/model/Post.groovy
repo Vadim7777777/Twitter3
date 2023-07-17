@@ -22,10 +22,10 @@ class Post {
     private User author;
 
     @DocumentReference(lazy = true)
-    private List<Like> likes;
+    private List<Like> likes = new ArrayList<Like>();
 
     @DocumentReference(lazy = true)
-    private List<Comment> comments;
+    private List<Comment> comments = new ArrayList<Comment>()
 
     def getAuthor() {
         author
@@ -42,6 +42,10 @@ class Post {
     def List<Comment> getComments()
     {
         return comments;
+    }
+
+    def getPostDate() {
+        return postDate;
     }
 
 }
